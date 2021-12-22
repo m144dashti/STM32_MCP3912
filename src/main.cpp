@@ -48,11 +48,7 @@ void loop() {
     volt = (ADC / 1000000) * 2;
   }
 
-  HAL_ADC_Start(&hadc2);
-	HAL_ADC_PollForConversion(&hadc2, 1);
-	ADC_Val = HAL_ADC_GetValue(&hadc2);
-
-  Data[FIR_ORDER - 1] = ADC_Val;
+  Data[FIR_ORDER - 1] = volt;
   for(uint8_t j=0 ; j<FIR_ORDER ; j++){
     Sum += Data[j];
   }
@@ -60,8 +56,11 @@ void loop() {
     Data[i] = Data[i+1];
   }
   
+  HAL_ADC_Start(&hadc2);
+	HAL_ADC_PollForConversion(&hadc2, 1);
+	ADC_Val = HAL_ADC_GetValue(&hadc2);
 
-  Serial.printf("$%d %d;", ((Sum/FIR_ORDER)+100), ADC_Val);
+  Serial.printf("$%d %d;", (Sum/FIR_ORDER), ADC_Val);
   delay(1);
   Sum = 0;
 }
