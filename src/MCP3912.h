@@ -33,7 +33,7 @@ uint8_t treg = 0;
 uint8_t readReg[3] = {0, 0, 0};
 uint8_t readReg32[4] = {0, 0, 0, 0};
 uint32_t adc_ch0 = 0, adc_ch1 = 0, adc_ch2 = 0, adc_ch3 = 0;
-uint32_t ADC = 0;
+
 
 void mcp3912_write_reg(uint8_t reg, uint32_t val)
 {
